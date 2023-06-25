@@ -1,0 +1,65 @@
+{{ block title }}
+Select one option in Each row
+{{ endblock }}
+
+{{ block content }}
+<style>
+    .list_radio{
+        width: 18px;
+        height: 18px;
+    }
+</style>
+<div>
+<span id = "results"></span>
+</div>
+<input type="hidden" name="time_switching_point" id="id_switching_point">
+<input type="hidden" name="time_consistency" id="id_consistency">
+<input type="hidden" name="time_left_sum" id="id_left_sum">
+<input type="hidden" name="time_right_sum" id="id_right_sum">
+<input type="hidden" name="time_choice_list" id="id_choice_list">
+
+{{ formfield_errors 'time_switching_point' }}
+{{ formfield_errors 'time_consistency' }}
+{{ formfield_errors 'time_left_sum' }}
+{{ formfield_errors 'time_right_sum' }}
+{{ formfield_errors 'time_choice_list'}}
+
+<table class="table table-striped">
+    <colgroup>
+        <col width="40%">
+        <col width="20%">
+        <col width="40%">
+    </colgroup>
+    <tr>
+        <td align="right"><b>Option A</b></td>
+        <td></td>
+        <td align="left"><b>Option B</b></td>
+    </tr>
+    {{ for amount in right_side_amounts }}
+    <tr>
+        <td align="right">
+        <b>{{ C.TIME_AMOUNT }}</b> {{ C.TIME_STAMP1 }}
+        <td align="middle">
+            <input type="radio" class="list_radio"
+                   value="0"
+                   name="{{ amount }}"
+                   required
+                   onclick="handleClick(this)">&nbsp;&nbsp;
+            <input type="radio" class="list_radio"
+                   name="{{ amount }}"
+                   value="1" data-amount="{{ amount }}"
+                   required
+                   onclick="handleClick(this)">
+        </td>
+        <td align="left">
+            <b>{{ amount }} </b> {{ C.TIME_STAMP2 }} 
+    </tr>
+    {{ endfor }}
+</table>
+
+
+<button type="button" class="btn btn-primary" onclick="submitForm()">Next</button>
+
+<script src="{{ static 'price_list.js' }}"></script>
+{{ endblock }}
+
